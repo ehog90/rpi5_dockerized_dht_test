@@ -1,0 +1,17 @@
+services:
+  leafr-backend:
+    network_mode: 'host'
+    container_name: rpi5-dsockerized-test
+    privileged: true
+    cap_add:
+    - SYS_RAWIO
+    - NET_RAW
+    build:
+      context: .
+    devices:
+      - /dev:/dev
+      - /var/run/dbus/:/var/run/dbus/
+    volumes:
+      - /var/run/pigpio.sock:/var/run/pigpio.sock:ro 
+      - /var/run/dbus:/var/run/dbus
+    restart: unless-stopped
