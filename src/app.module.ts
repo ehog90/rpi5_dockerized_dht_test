@@ -9,7 +9,7 @@ import { SensorProcessorService } from './services/sensor-processor/sensor-proce
     BullModule.forRoot({
       connection: {
         host: process.env.REDIS_HOST ?? 'localhost',
-        port: Number(process.env.REDIS_PORT ?? 4444),
+        port: Number(process.env.REDIS_PORT ?? 6379),
       },
     }),
     BullModule.registerQueue({
@@ -19,4 +19,4 @@ import { SensorProcessorService } from './services/sensor-processor/sensor-proce
   controllers: [AppController],
   providers: [DhtService, SensorProcessorService],
 })
-export class AppModule {}
+export class AppModule { }
