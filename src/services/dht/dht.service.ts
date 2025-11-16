@@ -11,7 +11,7 @@ export class DhtService implements OnModuleInit, OnModuleDestroy {
 
 
     constructor(
-        @InjectQueue('sensor-measures')
+        @InjectQueue('sensor-measures-test')
         private readonly sensorQueue: Queue<unknown>
     ) {
 

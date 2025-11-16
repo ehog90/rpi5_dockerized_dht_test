@@ -1,16 +1,17 @@
 services:
   rpi5-redis:
     network_mode: 'host'
-    container_name: 'rpi5-dsockerized-test-redis'
+    container_name: 'rpi5-dockerized-test-redis'
     restart: unless-stopped
     image: redis:7.4.2-alpine3.21
     ports:
-      - '4444:6379'
+      - '4444:4444'
+    command: redis-server --port 4444
     healthcheck:
       test: ['CMD', 'redis-cli', '--raw', 'incr', 'ping']
   rpi5-backend:
     network_mode: 'host'
-    container_name: rpi5-dsockerized-test
+    container_name: rpi5-dockerized-test
     privileged: true
     cap_add:
     - SYS_RAWIO
