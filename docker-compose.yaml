@@ -1,5 +1,14 @@
 services:
-  leafr-backend:
+  rpi5-redis:
+    network_mode: 'host'
+    container_name: 'rpi5-dsockerized-test-redis'
+    restart: unless-stopped
+    image: redis:7.4.2-alpine3.21
+    ports:
+      - '4444:6379'
+    healthcheck:
+      test: ['CMD', 'redis-cli', '--raw', 'incr', 'ping']
+  rpi5-backend:
     network_mode: 'host'
     container_name: rpi5-dsockerized-test
     privileged: true
@@ -15,3 +24,6 @@ services:
       - /var/run/pigpio.sock:/var/run/pigpio.sock:ro 
       - /var/run/dbus:/var/run/dbus
     restart: unless-stopped
+    depends_on:
+      rpi5-redis:
+        condition: service_healthy
