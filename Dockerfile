@@ -44,6 +44,7 @@ RUN echo "Europe/Budapest" >  /etc/timezone && cp /usr/share/zoneinfo/Europe/Bud
 WORKDIR /app
 
 COPY package*.json ./
+COPY tsconfig*.json ./
 COPY . .
 
 RUN npm pkg delete dependencies.node-dht-sensor || true && \
@@ -51,6 +52,7 @@ RUN npm pkg delete dependencies.node-dht-sensor || true && \
 
 RUN npm ci
 RUN npm install node-dht-sensor --use_libgpiod=true
+RUN npm run build
 
 RUN npm prune --production
 
@@ -58,4 +60,4 @@ RUN apk del \
     .builds-deps \
     build-base \ 
     git
-CMD ["sh", "-c", "node index.js"]
+CMD ["sh", "-c", "node dist/main.js"]
